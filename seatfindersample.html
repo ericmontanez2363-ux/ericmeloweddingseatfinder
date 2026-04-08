@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wedding Seat Finder</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Mulish:wght@200;300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- ADMIN OVERLAY -->
+  <div id="admin-overlay" class="hidden">
+    <div class="admin-panel">
+      <button class="close-btn" onclick="closeAdmin()">✕</button>
+      <div class="admin-header">
+        <div class="admin-leaf">❧</div>
+        <h2 class="admin-title">Manage Guests</h2>
+      </div>
+
+      <div class="admin-form">
+        <div class="field-wrap">
+          <label>Guest Name</label>
+          <input type="text" id="admin-name" placeholder="e.g. Maria Santos" autocomplete="off" />
+        </div>
+        <div class="field-wrap">
+          <label>Table</label>
+          <input type="text" id="admin-table" placeholder="e.g. Table 3" autocomplete="off" />
+        </div>
+        <div class="field-wrap">
+          <label>Seated With (comma-separated)</label>
+          <input type="text" id="admin-companions" placeholder="e.g. Jose Reyes, Ana Cruz" autocomplete="off" />
+        </div>
+        <button class="btn-add" onclick="addGuest()">Add Guest</button>
+      </div>
+
+      <div class="admin-list-wrap">
+        <p class="admin-list-label">Guest List <span id="guest-count"></span></p>
+        <div class="admin-list" id="admin-list"></div>
+      </div>
+
+      <div class="admin-actions">
+        <button class="btn-export" onclick="exportData()">Export JSON</button>
+        <label class="btn-import">Import JSON
+          <input type="file" accept=".json" onchange="importData(event)" style="display:none" />
+        </label>
+        <button class="btn-clear" onclick="clearAll()">Clear All</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW ALL TABLES OVERLAY -->
+  <div id="tables-overlay" class="hidden">
+    <div class="tables-panel">
+      <div class="tables-panel-header">
+        <div>
+          <p class="tables-eyebrow">Seating Arrangement</p>
+          <h2 class="tables-title">All Tables</h2>
+        </div>
+        <button class="close-btn" onclick="closeTables()">✕</button>
+      </div>
+      <div class="tables-grid" id="tables-grid"></div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="bg-leaves" aria-hidden="true">
+    <span class="leaf l1">❧</span>
+    <span class="leaf l2">❦</span>
+    <span class="leaf l3">❧</span>
+    <span class="leaf l4">❦</span>
+  </div>
+
+  <main class="page">
+
+    <header class="hero">
+      <div class="monogram-ring">
+        <svg viewBox="0 0 80 80" class="ring-svg" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="40" cy="40" r="36" fill="none" stroke="currentColor" stroke-width="0.6" stroke-dasharray="4 3"/>
+          <circle cx="40" cy="40" r="29" fill="none" stroke="currentColor" stroke-width="0.3"/>
+        </svg>
+        <span class="monogram-letter">✦</span>
+      </div>
+
+      <p class="eyebrow">Welcome, dear guest</p>
+      <h1 class="site-title">Your Seat<br><em>Awaits</em></h1>
+      <p class="site-desc">Search your name to find your table and the lovely guests beside you</p>
+    </header>
+
+    <div class="divider-sprig" aria-hidden="true">
+      <svg viewBox="0 0 260 18" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="9" x2="95" y2="9" stroke="currentColor" stroke-width="0.6"/>
+        <text x="130" y="13" text-anchor="middle" font-size="10" fill="currentColor" font-family="serif">❧</text>
+        <line x1="165" y1="9" x2="260" y2="9" stroke="currentColor" stroke-width="0.6"/>
+      </svg>
+    </div>
+
+    <button class="view-tables-btn" onclick="openTables()">
+      <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" width="14" height="14">
+        <rect x="1" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/>
+        <rect x="11" y="1" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/>
+        <rect x="1" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/>
+        <rect x="11" y="11" width="6" height="6" rx="1" stroke="currentColor" stroke-width="1.2"/>
+      </svg>
+      View All Tables
+    </button>
+
+    <section class="search-section">
+      <div class="search-box">
+        <svg class="search-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="8.5" cy="8.5" r="5.5" stroke="currentColor" stroke-width="1"/>
+          <line x1="13" y1="13" x2="17" y2="17" stroke="currentColor" stroke-width="1" stroke-linecap="round"/>
+        </svg>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="Type your name…"
+          autocomplete="off"
+          oninput="handleSearch()"
+          onkeydown="handleKey(event)"
+        />
+      </div>
+
+      <div id="results-area" class="results-area"></div>
+    </section>
+
+    <footer class="site-footer">
+      <div class="footer-flora" aria-hidden="true">❦</div>
+      <button class="admin-trigger" onclick="openAdmin()" title="Admin">⚙</button>
+    </footer>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
