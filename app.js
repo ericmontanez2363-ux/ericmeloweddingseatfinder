@@ -1,822 +1,338 @@
-/* ─── Tokens ────────────────────────────────────────── */
-:root {
-  --ivory:        #faf8f2;
-  --ivory-deep:   #f3efe4;
-  --ivory-border: #e6dfd0;
-  --sage:         #7a9478;
-  --sage-mid:     #92a98f;
-  --sage-light:   #c4d4c0;
-  --sage-pale:    #e8efe7;
-  --ink:          #2d3328;
-  --ink-soft:     #4e5948;
-  --ink-muted:    #8a9484;
-  --white:        #ffffff;
-  --shadow:       rgba(45, 51, 40, 0.08);
-  --t:            0.3s cubic-bezier(0.4,0,0.2,1);
-}
-
-/* ─── Reset ─────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--ivory);
-  color: var(--ink);
-  font-family: 'Mulish', sans-serif;
-  font-weight: 300;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2.5rem 1.25rem;
-  position: relative;
-  overflow-x: hidden;
-}
-
-/* ─── Background flora ───────────────────────────────── */
-.bg-leaves {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.leaf {
-  position: absolute;
-  font-size: 9rem;
-  color: var(--sage-light);
-  opacity: 0.18;
-  line-height: 1;
-  user-select: none;
-}
-
-.l1 { top: -2rem;  left: -3rem;   transform: rotate(-20deg);  font-size: 11rem; }
-.l2 { bottom: 2rem; right: -2rem;  transform: rotate(160deg); font-size: 12rem; }
-.l3 { top: 40%;   left: -4rem;   transform: rotate(30deg);   font-size: 8rem; }
-.l4 { top: 10%;   right: -3rem;  transform: rotate(-150deg); font-size: 9rem; }
-
-/* ─── Page ───────────────────────────────────────────── */
-.page {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 500px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2rem;
-  animation: rise 0.9s ease both;
-}
-
-@keyframes rise {
-  from { opacity: 0; transform: translateY(22px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* ─── Hero ───────────────────────────────────────────── */
-.hero {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.8rem;
-}
-
-.monogram-ring {
-  position: relative;
-  width: 72px;
-  height: 72px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.2rem;
-}
-
-.ring-svg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--sage-mid);
-  animation: spin 30s linear infinite;
-}
-
-@keyframes spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
-.monogram-letter {
-  font-size: 1.3rem;
-  color: var(--sage);
-  position: relative;
-  z-index: 1;
-}
-
-.eyebrow {
-  font-size: 0.7rem;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-  color: var(--sage);
-  font-weight: 400;
-}
-
-.site-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  font-size: clamp(2.6rem, 9vw, 3.6rem);
-  line-height: 1.05;
-  color: var(--ink);
-  letter-spacing: 0.01em;
-}
-
-.site-title em {
-  font-style: italic;
-  color: var(--sage);
-}
-
-.site-desc {
-  font-size: 0.76rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  max-width: 30ch;
-  line-height: 1.8;
-}
-
-/* ─── Divider ────────────────────────────────────────── */
-.divider-sprig {
-  width: 200px;
-  color: var(--sage-mid);
-  opacity: 0.7;
-}
-.divider-sprig svg { width: 100%; }
-
-/* ─── Search ─────────────────────────────────────────── */
-.search-section {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.8rem;
-}
-
-.search-box {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  background: var(--white);
-  border: 1px solid var(--ivory-border);
-  border-radius: 60px;
-  padding: 0.85rem 1.4rem;
-  box-shadow: 0 2px 14px var(--shadow);
-  transition: box-shadow var(--t), border-color var(--t);
-}
-
-.search-box:focus-within {
-  border-color: var(--sage-mid);
-  box-shadow: 0 4px 20px rgba(122, 148, 120, 0.18);
-}
-
-.search-icon {
-  width: 16px;
-  height: 16px;
-  color: var(--ink-muted);
-  flex-shrink: 0;
-  transition: color var(--t);
-}
-
-.search-box:focus-within .search-icon { color: var(--sage); }
-
-.search-input {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  font-family: 'Playfair Display', serif;
-  font-size: 1.05rem;
-  font-style: italic;
-  color: var(--ink);
-  caret-color: var(--sage);
-  letter-spacing: 0.02em;
-}
-
-.search-input::placeholder {
-  color: var(--ink-muted);
-  font-style: italic;
-}
-
-/* ─── Results ────────────────────────────────────────── */
-.results-area {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-/* ── Main result card ── */
-.result-card {
-  background: var(--white);
-  border: 1px solid var(--ivory-border);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 3px 18px var(--shadow);
-  animation: cardIn 0.38s ease both;
-}
-
-@keyframes cardIn {
-  from { opacity: 0; transform: translateY(10px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0)   scale(1); }
-}
-
-.card-top {
-  background: var(--sage-pale);
-  border-bottom: 1px solid var(--ivory-border);
-  padding: 1.2rem 1.6rem 1rem;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
-}
-
-.card-name-block { flex: 1; }
-
-.card-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--sage);
-  font-weight: 400;
-  margin-bottom: 0.2rem;
-}
-
-.card-name {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
-  font-weight: 500;
-  color: var(--ink);
-  line-height: 1.2;
-}
-
-.card-table-badge {
-  background: var(--sage);
-  color: var(--white);
-  border-radius: 6px;
-  padding: 0.3rem 0.75rem;
-  font-size: 0.68rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  font-weight: 400;
-  white-space: nowrap;
-  align-self: flex-start;
-  margin-top: 0.2rem;
-}
-
-/* ── Companions section ── */
-.card-companions {
-  padding: 1rem 1.6rem 1.2rem;
-}
-
-.companions-label {
-  font-size: 0.62rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.companions-label::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--ivory-border);
-}
-
-.companions-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.companion-pill {
-  background: var(--ivory-deep);
-  border: 1px solid var(--ivory-border);
-  border-radius: 30px;
-  padding: 0.3rem 0.85rem;
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 300;
-  color: var(--ink-soft);
-  letter-spacing: 0.04em;
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.companion-pill::before {
-  content: '✦';
-  color: var(--sage-mid);
-  font-size: 0.5rem;
-}
-
-/* No companions */
-.no-companions {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 0.85rem;
-  color: var(--ink-muted);
-}
-
-/* ── Empty / hint states ── */
-.result-empty {
-  text-align: center;
-  padding: 1.5rem 0;
-}
-
-.result-empty-icon {
-  font-size: 2rem;
-  color: var(--sage-light);
-  margin-bottom: 0.6rem;
-}
-
-.result-empty-text {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 1.05rem;
-  color: var(--ink-muted);
-}
-
-.result-empty-sub {
-  font-size: 0.7rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--sage-mid);
-  margin-top: 0.4rem;
-}
-
-/* ─── Footer ─────────────────────────────────────────── */
-.site-footer {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.6rem;
-  padding-bottom: 0.5rem;
-}
-
-.footer-flora {
-  color: var(--sage-light);
-  font-size: 1.1rem;
-}
-
-.admin-trigger {
-  background: none;
-  border: none;
-  color: var(--ivory-border);
-  font-size: 0.78rem;
-  cursor: pointer;
-  padding: 0.3rem 0.5rem;
-  transition: color var(--t);
-}
-.admin-trigger:hover { color: var(--ink-muted); }
-
-/* ─── Admin Overlay ──────────────────────────────────── */
-#admin-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(45, 51, 40, 0.5);
-  backdrop-filter: blur(5px);
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem;
-  animation: fadeIn 0.25s ease;
-}
-
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-.admin-panel {
-  background: var(--ivory);
-  border: 1px solid var(--ivory-border);
-  border-radius: 16px;
-  padding: 2rem 1.8rem;
-  width: 100%;
-  max-width: 480px;
-  max-height: 90vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.4rem;
-  position: relative;
-  box-shadow: 0 20px 60px rgba(45,51,40,0.18);
-  animation: panelUp 0.3s ease;
-}
-
-@keyframes panelUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-.close-btn {
-  position: absolute;
-  top: 1rem; right: 1rem;
-  background: var(--ivory-deep);
-  border: 1px solid var(--ivory-border);
-  border-radius: 50%;
-  width: 28px; height: 28px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 0.7rem;
-  color: var(--ink-muted);
-  cursor: pointer;
-  transition: all var(--t);
-}
-.close-btn:hover { background: var(--sage-pale); color: var(--ink); }
-
-.admin-header {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-}
-
-.admin-leaf {
-  font-size: 1.4rem;
-  color: var(--sage);
-}
-
-.admin-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  font-size: 1.5rem;
-  color: var(--ink);
-}
-
-/* Form */
-.admin-form {
-  background: var(--sage-pale);
-  border: 1px solid var(--ivory-border);
-  border-radius: 10px;
-  padding: 1.4rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.field-wrap { display: flex; flex-direction: column; gap: 0.3rem; }
-
-.field-wrap label {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--sage);
-  font-weight: 400;
-}
-
-.field-wrap input {
-  background: var(--white);
-  border: 1px solid var(--ivory-border);
-  border-radius: 6px;
-  padding: 0.55rem 0.75rem;
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 300;
-  color: var(--ink);
-  outline: none;
-  caret-color: var(--sage);
-  transition: border-color var(--t);
-}
-.field-wrap input:focus { border-color: var(--sage-mid); }
-.field-wrap input::placeholder { color: var(--ink-muted); }
-
-.btn-add {
-  background: var(--sage);
-  color: var(--white);
-  border: none;
-  border-radius: 6px;
-  padding: 0.65rem 1.4rem;
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  cursor: pointer;
-  align-self: flex-start;
-  transition: background var(--t);
-}
-.btn-add:hover { background: var(--ink); }
-
-/* Guest list */
-.admin-list-label {
-  font-size: 0.65rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--ink-muted);
-  margin-bottom: 0.5rem;
-}
-.admin-list-label span { color: var(--sage); }
-
-.admin-list {
-  max-height: 200px;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.admin-row {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.55rem 0.75rem;
-  background: var(--white);
-  border: 1px solid var(--ivory-border);
-  border-radius: 6px;
-  animation: cardIn 0.2s ease both;
-}
-
-.admin-row-info { flex: 1; min-width: 0; }
-
-.admin-row-name {
-  font-size: 0.88rem;
-  color: var(--ink);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.admin-row-meta {
-  font-size: 0.68rem;
-  color: var(--ink-muted);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.btn-del {
-  background: none;
-  border: 1px solid var(--ivory-border);
-  border-radius: 4px;
-  color: var(--ink-muted);
-  width: 22px; height: 22px;
-  font-size: 0.6rem;
-  cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  transition: all var(--t);
-}
-.btn-del:hover { border-color: #b94040; color: #b94040; }
-
-/* Actions */
-.admin-actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  border-top: 1px solid var(--ivory-border);
-  padding-top: 1rem;
-}
-
-.btn-export, .btn-import, .btn-clear {
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.68rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all var(--t);
-}
-
-.btn-export {
-  background: none;
-  border: 1px solid var(--ink);
-  color: var(--ink);
-}
-.btn-export:hover { background: var(--ink); color: var(--ivory); }
-
-.btn-import {
-  background: none;
-  border: 1px solid var(--sage);
-  color: var(--sage);
-  display: inline-block;
-}
-.btn-import:hover { background: var(--sage); color: var(--white); }
-
-.btn-clear {
-  background: none;
-  border: 1px solid var(--ivory-border);
-  color: var(--ink-muted);
-  margin-left: auto;
-}
-.btn-clear:hover { border-color: #b94040; color: #b94040; }
-
-/* ─── View All Tables Button ─────────────────────────── */
-.view-tables-btn {
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  background: var(--white);
-  border: 1px solid var(--ivory-border);
-  border-radius: 30px;
-  padding: 0.6rem 1.25rem;
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-soft);
-  cursor: pointer;
-  box-shadow: 0 2px 10px var(--shadow);
-  transition: all var(--t);
-}
-
-.view-tables-btn:hover {
-  border-color: var(--sage-mid);
-  color: var(--sage);
-  box-shadow: 0 4px 16px rgba(122,148,120,0.15);
-}
-
-/* ─── Tables Overlay ─────────────────────────────────── */
-#tables-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(45, 51, 40, 0.5);
-  backdrop-filter: blur(5px);
-  z-index: 200;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  animation: fadeIn 0.25s ease;
-}
-
-@media (min-height: 600px) {
-  #tables-overlay { align-items: center; }
-}
-
-.tables-panel {
-  background: var(--ivory);
-  border: 1px solid var(--ivory-border);
-  border-radius: 20px 20px 0 0;
-  padding: 2rem 1.6rem 2.5rem;
-  width: 100%;
-  max-width: 600px;
-  max-height: 88vh;
-  overflow-y: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 1.6rem;
-  box-shadow: 0 -8px 40px rgba(45,51,40,0.14);
-  animation: sheetUp 0.35s cubic-bezier(0.32,0.72,0,1);
-}
-
-@media (min-height: 600px) {
-  .tables-panel {
-    border-radius: 20px;
-    max-height: 85vh;
-    animation: panelUp 0.3s ease;
+/**
+ * Sage & Ivory Wedding Seat Finder — app.js
+ * Each guest has: name, table, companions[]
+ * Data lives in localStorage — works as a GitHub Pages static site.
+ */
+
+const STORAGE_KEY = "sage_seatfinder_v1";
+
+let guests = [];
+
+/* ─── Init ──────────────────────────────────────────── */
+document.addEventListener("DOMContentLoaded", () => {
+  loadGuests();
+  renderAdminList();
+  updateGuestCount();
+
+  // Auto-focus search
+  setTimeout(() => document.getElementById("search-input")?.focus(), 400);
+
+  // Pre-fill from QR: ?name=Maria+Santos
+  const params = new URLSearchParams(window.location.search);
+  const prefill = params.get("name") || params.get("n");
+  if (prefill) {
+    document.getElementById("search-input").value = decodeURIComponent(prefill);
+    handleSearch();
+  }
+
+  // Close admin on backdrop click
+  document.getElementById("admin-overlay").addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) closeAdmin();
+  });
+
+  // Close tables on backdrop click
+  document.getElementById("tables-overlay").addEventListener("click", (e) => {
+    if (e.target === e.currentTarget) closeTables();
+  });
+});
+
+/* ─── Storage ───────────────────────────────────────── */
+function loadGuests() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    guests = raw ? JSON.parse(raw) : getDefaultGuests();
+    if (!raw) saveGuests();
+  } catch {
+    guests = getDefaultGuests();
   }
 }
 
-@keyframes sheetUp {
-  from { transform: translateY(100%); }
-  to   { transform: translateY(0); }
+function saveGuests() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(guests));
 }
 
-.tables-panel-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 1rem;
+function getDefaultGuests() {
+  return [
+    {
+      name: "Maria Santos",
+      table: "Table 1",
+      companions: ["Jose Reyes", "Ana dela Cruz", "Carmen Flores"]
+    },
+    {
+      name: "Jose Reyes",
+      table: "Table 1",
+      companions: ["Maria Santos", "Ana dela Cruz", "Carmen Flores"]
+    },
+    {
+      name: "Ana dela Cruz",
+      table: "Table 1",
+      companions: ["Maria Santos", "Jose Reyes", "Carmen Flores"]
+    },
+    {
+      name: "Carmen Flores",
+      table: "Table 1",
+      companions: ["Maria Santos", "Jose Reyes", "Ana dela Cruz"]
+    },
+    {
+      name: "Ricardo Torres",
+      table: "Table 2",
+      companions: ["Luz Villanueva", "Pedro Ramos"]
+    },
+    {
+      name: "Luz Villanueva",
+      table: "Table 2",
+      companions: ["Ricardo Torres", "Pedro Ramos"]
+    },
+    {
+      name: "Pedro Ramos",
+      table: "Table 2",
+      companions: ["Ricardo Torres", "Luz Villanueva"]
+    },
+  ];
 }
 
-.tables-eyebrow {
-  font-size: 0.65rem;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--sage);
-  font-weight: 400;
-  margin-bottom: 0.2rem;
+/* ─── Search ────────────────────────────────────────── */
+function handleSearch() {
+  const query = document.getElementById("search-input").value.trim();
+  const area  = document.getElementById("results-area");
+  area.innerHTML = "";
+
+  if (!query) return;
+
+  const matches = guests.filter(g =>
+    g.name.toLowerCase().includes(query.toLowerCase())
+  );
+
+  if (matches.length === 0) {
+    area.innerHTML = `
+      <div class="result-empty">
+        <div class="result-empty-icon">❧</div>
+        <p class="result-empty-text">No guest found for "<em>${escHtml(query)}</em>"</p>
+        <p class="result-empty-sub">Please check your name or ask an usher</p>
+      </div>
+    `;
+    return;
+  }
+
+  matches.forEach((g, i) => {
+    const companions = (g.companions || []).filter(Boolean);
+
+    const companionPills = companions.length
+      ? companions.map(c => `<span class="companion-pill">${escHtml(c)}</span>`).join("")
+      : `<span class="no-companions">You have the table to yourself</span>`;
+
+    const card = document.createElement("div");
+    card.className = "result-card";
+    card.style.animationDelay = `${i * 70}ms`;
+    card.innerHTML = `
+      <div class="card-top">
+        <div class="card-name-block">
+          <p class="card-label">Guest</p>
+          <p class="card-name">${escHtml(g.name)}</p>
+        </div>
+        <div class="card-table-badge">${escHtml(g.table)}</div>
+      </div>
+      <div class="card-companions">
+        <p class="companions-label">Seated with</p>
+        <div class="companions-list">${companionPills}</div>
+      </div>
+    `;
+    area.appendChild(card);
+  });
 }
 
-.tables-title {
-  font-family: 'Playfair Display', serif;
-  font-weight: 400;
-  font-size: 1.7rem;
-  color: var(--ink);
-  letter-spacing: 0.02em;
+function handleKey(e) {
+  if (e.key === "Escape") {
+    document.getElementById("search-input").value = "";
+    document.getElementById("results-area").innerHTML = "";
+  }
 }
 
-/* Grid of table cards */
-.tables-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+/* ─── View All Tables ───────────────────────────────── */
+function openTables() {
+  renderTables();
+  document.getElementById("tables-overlay").classList.remove("hidden");
 }
 
-@media (max-width: 400px) {
-  .tables-grid { grid-template-columns: 1fr; }
+function closeTables() {
+  document.getElementById("tables-overlay").classList.add("hidden");
 }
 
-.table-card {
-  background: var(--white);
-  border: 1px solid var(--ivory-border);
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 2px 12px var(--shadow);
-  animation: cardIn 0.35s ease both;
+function renderTables() {
+  const grid = document.getElementById("tables-grid");
+  if (!grid) return;
+
+  if (guests.length === 0) {
+    grid.innerHTML = `
+      <div class="tables-empty">
+        <div class="tables-empty-icon">❧</div>
+        <p class="tables-empty-text">No guests added yet</p>
+      </div>
+    `;
+    return;
+  }
+
+  // Group guests by table, sort table names naturally
+  const tableMap = {};
+  guests.forEach(g => {
+    const key = g.table || "Unassigned";
+    if (!tableMap[key]) tableMap[key] = [];
+    tableMap[key].push(g.name);
+  });
+
+  const sorted = Object.keys(tableMap).sort((a, b) =>
+    a.localeCompare(b, undefined, { numeric: true })
+  );
+
+  grid.innerHTML = sorted.map((table, i) => {
+    const names = tableMap[table];
+    const rows = names
+      .map(n => `
+        <div class="table-guest-row">
+          <div class="table-guest-dot"></div>
+          <span class="table-guest-name">${escHtml(n)}</span>
+        </div>
+      `)
+      .join("");
+
+    return `
+      <div class="table-card" style="animation-delay:${i * 50}ms">
+        <div class="table-card-header">
+          <span class="table-card-name">${escHtml(table)}</span>
+          <span class="table-card-count">${names.length} guest${names.length !== 1 ? "s" : ""}</span>
+        </div>
+        <div class="table-card-guests">${rows}</div>
+      </div>
+    `;
+  }).join("");
 }
 
-.table-card-header {
-  background: var(--sage);
-  padding: 0.65rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* ─── Admin ─────────────────────────────────────────── */
+function openAdmin() {
+  document.getElementById("admin-overlay").classList.remove("hidden");
+  renderAdminList();
 }
 
-.table-card-name {
-  font-family: 'Mulish', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 400;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--white);
+function closeAdmin() {
+  document.getElementById("admin-overlay").classList.add("hidden");
 }
 
-.table-card-count {
-  font-size: 0.65rem;
-  color: rgba(255,255,255,0.7);
-  letter-spacing: 0.08em;
+function addGuest() {
+  const nameEl       = document.getElementById("admin-name");
+  const tableEl      = document.getElementById("admin-table");
+  const companionsEl = document.getElementById("admin-companions");
+
+  const name  = nameEl.value.trim();
+  const table = tableEl.value.trim();
+  const companions = companionsEl.value
+    .split(",")
+    .map(s => s.trim())
+    .filter(Boolean);
+
+  if (!name || !table) {
+    if (!name) flashInvalid(nameEl);
+    if (!table) flashInvalid(tableEl);
+    return;
+  }
+
+  guests.push({ name, table, companions });
+  saveGuests();
+  renderAdminList();
+  updateGuestCount();
+
+  nameEl.value = "";
+  tableEl.value = "";
+  companionsEl.value = "";
+  nameEl.focus();
+
+  handleSearch();
 }
 
-.table-card-guests {
-  padding: 0.75rem 1rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
+function deleteGuest(i) {
+  guests.splice(i, 1);
+  saveGuests();
+  renderAdminList();
+  updateGuestCount();
+  handleSearch();
 }
 
-.table-guest-row {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.3rem 0;
-  border-bottom: 1px solid var(--ivory-border);
+function renderAdminList() {
+  const list = document.getElementById("admin-list");
+  if (!list) return;
+
+  if (guests.length === 0) {
+    list.innerHTML = `<p style="font-size:0.78rem;color:var(--ink-muted);padding:0.8rem 0">No guests yet — add one above</p>`;
+    return;
+  }
+
+  list.innerHTML = guests.map((g, i) => `
+    <div class="admin-row">
+      <div class="admin-row-info">
+        <div class="admin-row-name">${escHtml(g.name)}</div>
+        <div class="admin-row-meta">${escHtml(g.table)}${g.companions?.length ? " · " + g.companions.length + " companion" + (g.companions.length > 1 ? "s" : "") : ""}</div>
+      </div>
+      <button class="btn-del" onclick="deleteGuest(${i})" title="Remove">✕</button>
+    </div>
+  `).join("");
 }
 
-.table-guest-row:last-child { border-bottom: none; }
-
-.table-guest-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background: var(--sage-light);
-  flex-shrink: 0;
+function updateGuestCount() {
+  const el = document.getElementById("guest-count");
+  if (el) el.textContent = `(${guests.length})`;
 }
 
-.table-guest-name {
-  font-size: 0.82rem;
-  color: var(--ink);
-  font-weight: 300;
-  letter-spacing: 0.02em;
+/* ─── Export / Import ───────────────────────────────── */
+function exportData() {
+  const blob = new Blob([JSON.stringify(guests, null, 2)], { type: "application/json" });
+  const a = Object.assign(document.createElement("a"), {
+    href: URL.createObjectURL(blob),
+    download: "wedding-guests.json"
+  });
+  a.click();
+  URL.revokeObjectURL(a.href);
 }
 
-.tables-empty {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 2rem 0;
+function importData(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      if (!Array.isArray(data)) throw new Error();
+      guests = data.filter(g => g.name && g.table);
+      saveGuests();
+      renderAdminList();
+      updateGuestCount();
+      handleSearch();
+    } catch {
+      alert("Import failed — please use a valid wedding-guests.json file.");
+    }
+    e.target.value = "";
+  };
+  reader.readAsText(file);
 }
 
-.tables-empty-icon {
-  font-size: 2rem;
-  color: var(--sage-light);
-  margin-bottom: 0.6rem;
+function clearAll() {
+  if (!confirm("Remove all guests? This cannot be undone.")) return;
+  guests = [];
+  saveGuests();
+  renderAdminList();
+  updateGuestCount();
+  handleSearch();
 }
 
-.tables-empty-text {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--ink-muted);
+/* ─── Helpers ───────────────────────────────────────── */
+function escHtml(s) {
+  return String(s)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
 }
 
-/* ─── Utility ────────────────────────────────────────── */
-.hidden { display: none !important; }
-
-/* ─── Scrollbar ──────────────────────────────────────── */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: var(--ivory-border); border-radius: 4px; }
-
-/* ─── Mobile ─────────────────────────────────────────── */
-@media (max-width: 480px) {
-  body { padding: 1.5rem 1rem; }
-  .admin-panel { padding: 1.8rem 1.3rem; }
-  .site-title { font-size: 2.4rem; }
-  .card-top { padding: 1rem 1.2rem; }
-  .card-companions { padding: 0.9rem 1.2rem 1rem; }
+function flashInvalid(el) {
+  el.style.borderColor = "#b94040";
+  setTimeout(() => (el.style.borderColor = ""), 1200);
 }
