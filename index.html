@@ -10,47 +10,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Mulish:wght@200;300;400&display=swap" rel="stylesheet">
 </head>
 <body>
-
-  <!-- ADMIN OVERLAY -->
-  <div id="admin-overlay" class="hidden">
-    <div class="admin-panel">
-      <button class="close-btn" onclick="closeAdmin()">✕</button>
-      <div class="admin-header">
-        <div class="admin-leaf">❧</div>
-        <h2 class="admin-title">Manage Guests</h2>
-      </div>
-
-      <div class="admin-form">
-        <div class="field-wrap">
-          <label>Guest Name</label>
-          <input type="text" id="admin-name" placeholder="e.g. Maria Santos" autocomplete="off" />
-        </div>
-        <div class="field-wrap">
-          <label>Table</label>
-          <input type="text" id="admin-table" placeholder="e.g. Table 3" autocomplete="off" />
-        </div>
-        <div class="field-wrap">
-          <label>Seated With (comma-separated)</label>
-          <input type="text" id="admin-companions" placeholder="e.g. Jose Reyes, Ana Cruz" autocomplete="off" />
-        </div>
-        <button class="btn-add" onclick="addGuest()">Add Guest</button>
-      </div>
-
-      <div class="admin-list-wrap">
-        <p class="admin-list-label">Guest List <span id="guest-count"></span></p>
-        <div class="admin-list" id="admin-list"></div>
-      </div>
-
-      <div class="admin-actions">
-        <button class="btn-export" onclick="exportData()">Export JSON</button>
-        <label class="btn-import">Import JSON
-          <input type="file" accept=".json" onchange="importData(event)" style="display:none" />
-        </label>
-        <button class="btn-clear" onclick="clearAll()">Clear All</button>
-      </div>
-    </div>
-  </div>
-
   <!-- VIEW ALL TABLES OVERLAY -->
   <div id="tables-overlay" class="hidden">
     <div class="tables-panel">
