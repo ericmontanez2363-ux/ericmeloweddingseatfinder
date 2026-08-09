@@ -217,7 +217,7 @@ function getDefaultGuests() {
 { name: "Minerva Garcia", table: "Table 8", companions: ["Crisfamer Delos Santos", "Ericka Quiño", "Jeremy Camille Cruz", "Minerva Garcia", "Mary Ann Cristobal", "Louie Anne Alalayin", "Jonathan Tapel"] },
 { name: "Mary Ann Cristobal", table: "Table 8", companions: ["Crisfamer Delos Santos", "Ericka Quiño", "Jeremy Camille Cruz", "Minerva Garcia", "Mary Ann Cristobal", "Louie Anne Alalayin", "Jonathan Tapel"] },
 { name: "Louie Anne Alalayin", table: "Table 8", companions: ["Crisfamer Delos Santos", "Ericka Quiño", "Jeremy Camille Cruz", "Minerva Garcia", "Mary Ann Cristobal", "Louie Anne Alalayin", "Jonathan Tapel"] },
-{ name: "Jonathan Tapel", table: "Table 8", companions: ["Crisfamer Delos Santos", "Ericka Quiño", "Jeremy Camille Cruz", "Minerva Garcia", "Mary Ann Cristobal", "Louie Anne Alalayin", "Jonathan Tapel"] }
+{ name: "Jonathan Tapel", table: "Table 8", companions: ["Crisfamer Delos Santos", "Ericka Quiño", "Jeremy Camille Cruz", "Minerva Garcia", "Mary Ann Cristobal", "Louie Anne Alalayin", "Jonathan Tapel"] },
 ];
 }
 
